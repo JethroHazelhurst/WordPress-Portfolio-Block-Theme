@@ -1,0 +1,12 @@
+{
+  "name": "wordpress-portfolio-block-theme",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "sass --watch wp-content/themes/portfolio/assets/scss/style.scss:wp-content/themes/portfolio/style.css --style=expanded --source-map",
+    "build": "sass wp-content/themes/portfolio/assets/scss/style.scss:wp-content/themes/portfolio/style.css --style=compressed --no-source-map"
+  },
+  "devDependencies": {
+    "sass": "^1.93.2"
+  }
+}

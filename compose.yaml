@@ -22,6 +22,7 @@ services:
     networks:
       - wordpress
 
+
   wordpress:
     image: wordpress:7.1.2-php8.4-apache
     restart: unless-stopped
@@ -36,8 +37,10 @@ services:
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+
       WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX:-wp_}
       WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-1}
+
       WORDPRESS_CONFIG_EXTRA: |
         define( 'WP_ENVIRONMENT_TYPE', 'local' );
         define( 'WP_DEBUG_LOG', true );
@@ -47,14 +50,25 @@ services:
     volumes:
       # WordPress installation, plugins and uploads.
       - wordpress_data:/var/www/html
-      # Your source-controlled block theme.
+      # Source-controlled block theme.
       - ./wp-content/themes/portfolio:/var/www/html/wp-content/themes/portfolio
     networks:
       - wordpress
 
+
+  assets:
+    image: node:24-bookworm-slim
+    working_dir: /workspace
+    profiles:
+      - tools
+    volumes:
+      - ./:/workspace
+      - node_modules:/workspace/node_modules
+
 volumes:
   db_data:
   wordpress_data:
+  node_modules:
 
 networks:
   wordpress:
